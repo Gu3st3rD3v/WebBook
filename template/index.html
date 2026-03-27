@@ -1,1 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Minha Estante</title>
+</head>
+<body>
+    <h1>Categorias de Livros</h1>
+    
+    <form action="/criar_categoria" method="POST">
+        <input type="text" name="nome" placeholder="Nome da Categoria" required>
+        <button type="submit">Criar Categoria</button>
+    </form>
 
+    <div class="lista-categorias">
+        {% for cat in categorias %}
+        <div class="card">
+            <a href="/categoria/{{ cat.id }}"><h3>{{ cat.nome }}</h3></a>
+            <p>Criado por: {{ cat.criador_ip }}</p>
+            {% if cat.criador_ip == user_ip %}
+                <span class="badge">Sua Categoria</span>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
